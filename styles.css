@@ -1,0 +1,47 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #0b1020;
+  color: #f8fafc;
+}
+
+.container {
+  width: min(900px, 92vw);
+  margin: 2rem auto;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+button {
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.status {
+  color: #93c5fd;
+}
+
+.transcript {
+  min-height: 240px;
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: #111827;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
