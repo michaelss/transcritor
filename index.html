@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transcritor Contínuo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Transcrição contínua por IA</h1>
+      <p>
+        Clique em <strong>Iniciar</strong> e permita o acesso ao microfone. O app vai
+        gravar em blocos curtos e transcrever continuamente com Whisper.
+      </p>
+
+      <div class="controls">
+        <button id="startBtn">Iniciar</button>
+        <button id="stopBtn" disabled>Parar</button>
+      </div>
+
+      <p id="status" class="status">Status: parado</p>
+      <section>
+        <h2>Texto reconhecido</h2>
+        <div id="transcript" class="transcript" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
