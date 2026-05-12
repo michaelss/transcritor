@@ -62,17 +62,44 @@ async function consumeQueue() {
 }
 
 function startCapture() {
-  const recorder = new MediaRecorder(stream, { mimeType: 'audio/webm;codecs=opus' });
-  recorder.ondataavailable = (event) => {
-    if (event.data && event.data.size > 0) {
-      audioQueue.push(event.data);
-    }
+  let recorder;
+  let intervalId;
+
+  const startNewRecording = () => {
+    if (!running) return;
+    recorder = new MediaRecorder(stream);
+    const chunks = [];
+    
+    recorder.ondataavailable = (event) => {
+      if (event.data && event.data.size > 0) {
+        chunks.push(event.data);
+      }
+    };
+    
+    recorder.onstop = () => {
+      if (chunks.length > 0) {
+        const blob = new Blob(chunks, { type: recorder.mimeType });
+        audioQueue.push(blob);
+      }
+    };
+    
+    recorder.start();
   };
 
-  recorder.start(2500);
+  startNewRecording();
+
+  intervalId = setInterval(() => {
+    if (recorder && recorder.state !== 'inactive') {
+      recorder.stop();
+    }
+    startNewRecording();
+  }, 2500);
 
   const stopRecording = () => {
-    if (recorder.state !== 'inactive') recorder.stop();
+    clearInterval(intervalId);
+    if (recorder && recorder.state !== 'inactive') {
+      recorder.stop();
+    }
   };
 
   return stopRecording;
